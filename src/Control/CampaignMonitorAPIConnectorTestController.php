@@ -85,7 +85,7 @@ class CampaignMonitorAPIConnectorTestController extends Controller
     /**
      * run all tests.
      */
-    public function testall()
+    public function testall(): never
     {
         $this->testlists();
         $this->testcampaigns();
@@ -217,24 +217,26 @@ class CampaignMonitorAPIConnectorTestController extends Controller
 
         echo '<h3>creating a campaign without template</h3>';
         $obj = CampaignMonitorCampaign::create();
-        $randNumber = rand();
+        $randNumber = random_int(0, mt_getrandmax());
         $obj->Name = 'test only ' . $randNumber;
         $obj->Subject = 'test only ' . $randNumber;
         $obj->CreateAsTemplate = false;
         $obj->CreateFromWebsite = true;
         $obj->write();
+
         $this->api->getSummary($obj->CampaignID);
         echo '<h3>deleting campaign without template</h3>';
         $obj->delete();
 
         echo '<h3>creating a campaign with template</h3>';
         $obj = CampaignMonitorCampaign::create();
-        $randNumber = rand();
+        $randNumber = random_int(0, mt_getrandmax());
         $obj->Name = 'test only ' . $randNumber;
         $obj->Subject = 'test only ' . $randNumber;
         $obj->CreateAsTemplate = true;
         $obj->CreateFromWebsite = true;
         $obj->write();
+
         $this->api->getSummary($obj->TemplateID);
         echo '<h3>deleting campaign with template</h3>';
         $obj->delete();
@@ -266,14 +268,14 @@ class CampaignMonitorAPIConnectorTestController extends Controller
         );
         $member = [];
         for ($i = 0; $i < 5; ++$i) {
-            $member[$i] = new Member();
+            $member[$i] = Member::create();
             $email = 'test_' . $i . '_' . $this->egData['oldEmailAddress'];
             $member[$i] = Member::get()->filter(['Email' => $email])->First();
-            if (! $member[$i]) {
-                $member[$i] = new Member();
+            if (!$member[$i] instanceof Member) {
+                $member[$i] = Member::create();
                 $member[$i]->Email = $email;
-                $member[$i]->FirstName = "First Name {$i}";
-                $member[$i]->Surname = "Surname {$i}";
+                $member[$i]->FirstName = 'First Name ' . $i;
+                $member[$i]->Surname = 'Surname ' . $i;
                 $member[$i]->write();
             }
 
@@ -368,7 +370,7 @@ class CampaignMonitorAPIConnectorTestController extends Controller
             user_error('To use the campaign monitor module you must set the basic authentication credentials such as CampaignMonitorAPIConnector.client_id');
         }
 
-        $this->egData['listTitle'] .= rand();
+        $this->egData['listTitle'] .= random_int(0, mt_getrandmax());
     }
 
     protected function setupTests()

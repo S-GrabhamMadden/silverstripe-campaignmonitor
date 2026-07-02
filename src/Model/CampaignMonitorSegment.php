@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sunnysideup\CampaignMonitor\Model;
 
 use SilverStripe\ORM\DataObject;
@@ -12,7 +14,7 @@ use Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage;
  * @property string $SegmentID
  * @property string $ListID
  * @property int $CampaignMonitorSignupPageID
- * @method \Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage CampaignMonitorSignupPage()
+ * @method CampaignMonitorSignupPage CampaignMonitorSignupPage()
  */
 class CampaignMonitorSegment extends DataObject
 {

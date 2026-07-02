@@ -37,8 +37,9 @@ class CampaignMonitorSyncAllMembers extends BuildTask
 
     /**
      * @var bool
+     * @config
      */
-    protected $enabled = false;
+    private static $is_enabled = false;
 
     /**
      * @var array
@@ -80,11 +81,11 @@ class CampaignMonitorSyncAllMembers extends BuildTask
         if ($this->debug) {
             $limit = 20;
             $maxIterations = 20;
-            DB::alteration_message("Running in debug mode going to check {$maxIterations} loops of {$limit} records.");
+            DB::alteration_message(sprintf('Running in debug mode going to check %d loops of %d records.', $maxIterations, $limit));
         } else {
             $limit = 400;
             $maxIterations = 1000000;
-            DB::alteration_message("Running in live mode going to check {$maxIterations} loops of {$limit} records.");
+            DB::alteration_message(sprintf('Running in live mode going to check %d loops of %d records.', $maxIterations, $limit));
         }
 
         $customFields = [];
@@ -162,10 +163,8 @@ class CampaignMonitorSyncAllMembers extends BuildTask
                     $sortByField = 'Email',
                     $sortDirection = 'ASC'
                 );
-                if (property_exists($list, 'NumberOfPages') && null !== $list->NumberOfPages && $list->NumberOfPages) {
-                    if ($i > $list->NumberOfPages) {
-                        $i = 999999;
-                    }
+                if (property_exists($list, 'NumberOfPages') && null !== $list->NumberOfPages && $list->NumberOfPages && $i > $list->NumberOfPages) {
+                    $i = 999999;
                 }
 
                 if (property_exists($list, 'Results') && null !== $list->Results) {
@@ -202,10 +201,8 @@ class CampaignMonitorSyncAllMembers extends BuildTask
                     $sortByField = 'Email',
                     $sortDirection = 'ASC'
                 );
-                if (property_exists($list, 'NumberOfPages') && null !== $list->NumberOfPages && $list->NumberOfPages) {
-                    if ($i > $list->NumberOfPages) {
-                        $i = 999999;
-                    }
+                if (property_exists($list, 'NumberOfPages') && null !== $list->NumberOfPages && $list->NumberOfPages && $i > $list->NumberOfPages) {
+                    $i = 999999;
                 }
 
                 if (property_exists($list, 'Results') && null !== $list->Results) {
@@ -237,10 +234,8 @@ class CampaignMonitorSyncAllMembers extends BuildTask
                     $sortByField = 'Email',
                     $sortDirection = 'ASC'
                 );
-                if (property_exists($list, 'NumberOfPages') && null !== $list->NumberOfPages && $list->NumberOfPages) {
-                    if ($i > $list->NumberOfPages) {
-                        $i = 999999;
-                    }
+                if (property_exists($list, 'NumberOfPages') && null !== $list->NumberOfPages && $list->NumberOfPages && $i > $list->NumberOfPages) {
+                    $i = 999999;
                 }
 
                 if (property_exists($list, 'Results') && null !== $list->Results) {
@@ -277,14 +272,14 @@ class CampaignMonitorSyncAllMembers extends BuildTask
                             foreach ($valuesArray as $key => $value) {
                                 if (Email::class !== $key) {
                                     if (! isset($this->previouslyExported[$email][$key])) {
-                                        if ('tba' === $value || 'No' === $value || strlen(trim($value)) < 1) {
+                                        if ('tba' === $value || 'No' === $value || strlen(trim((string) $value)) < 1) {
                                             //do nothing
                                         } else {
                                             $updateDetails = true;
-                                            DB::alteration_message(" - - - Missing value for {$key} - current value {$value}", 'created');
+                                            DB::alteration_message(sprintf(' - - - Missing value for %s - current value %s', $key, $value), 'created');
                                         }
                                     } elseif ($this->previouslyExported[$email][$key] !== $value) {
-                                        DB::alteration_message(' - - - Update for ' . $email . " for {$key} {$value} that is not the same as previous value: " . $this->previouslyExported[$email][$key], 'created');
+                                        DB::alteration_message(' - - - Update for ' . $email . sprintf(' for %s %s that is not the same as previous value: ', $key, $value) . $this->previouslyExported[$email][$key], 'created');
                                         $updateDetails = true;
                                     }
                                 }

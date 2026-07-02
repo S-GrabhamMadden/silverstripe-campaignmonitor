@@ -6,7 +6,6 @@ use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\NumericField;
-use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
 use Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage;
@@ -22,7 +21,7 @@ use Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage;
  * @property string $ListID
  * @property int $SortOrder
  * @property int $CampaignMonitorSignupPageID
- * @method \Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage CampaignMonitorSignupPage()
+ * @method CampaignMonitorSignupPage CampaignMonitorSignupPage()
  */
 class CampaignMonitorCustomField extends DataObject
 {

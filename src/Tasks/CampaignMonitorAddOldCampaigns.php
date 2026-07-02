@@ -2,6 +2,7 @@
 
 namespace Sunnysideup\CampaignMonitor\Tasks;
 
+use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\ORM\DB;
 use Sunnysideup\CampaignMonitor\Api\CampaignMonitorAPIConnector;
@@ -21,7 +22,7 @@ class CampaignMonitorAddOldCampaigns extends BuildTask
     }
 
     /**
-     * @param \SilverStripe\Control\HTTPRequest $request
+     * @param HTTPRequest $request
      *                                                   standard method
      */
     public function run($request)

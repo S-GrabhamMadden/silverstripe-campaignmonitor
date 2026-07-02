@@ -34,7 +34,7 @@ class CampaignMonitorSignupPageAdmin extends ModelAdmin
         // $time = (int) $session->get('CampaignMonitorSignupPageAdminINIT') - 0;
         if (isset($_GET['flush'])) {
             $session->set('CampaignMonitorSignupPageAdminINIT', time());
-            (new CampaignMonitorCreateLists())
+            (CampaignMonitorCreateLists::create())
                 ->setVerbose(false)
                 ->run(null);
         }

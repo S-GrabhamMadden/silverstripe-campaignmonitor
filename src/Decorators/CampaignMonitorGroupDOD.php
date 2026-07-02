@@ -2,9 +2,10 @@
 
 namespace Sunnysideup\CampaignMonitor\Decorators;
 
+use SilverStripe\Core\Extension;
+use SilverStripe\Security\Group;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\ReadonlyField;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Member;
 use Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage;
@@ -12,9 +13,9 @@ use Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage;
 /**
  * Class \Sunnysideup\CampaignMonitor\Decorators\CampaignMonitorGroupDOD
  *
- * @property \SilverStripe\Security\Group|\Sunnysideup\CampaignMonitor\Decorators\CampaignMonitorGroupDOD $owner
+ * @property Group|CampaignMonitorGroupDOD $owner
  */
-class CampaignMonitorGroupDOD extends DataExtension
+class CampaignMonitorGroupDOD extends Extension
 {
     /**
      * Is this a group for newsletter signing up.

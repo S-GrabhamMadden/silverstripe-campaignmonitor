@@ -18,8 +18,8 @@ use Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage;
  * @property string $ErrorDescription
  * @property int $MemberID
  * @property int $ListID
- * @method \SilverStripe\Security\Member Member()
- * @method \Sunnysideup\CampaignMonitor\CampaignMonitorSignupPage List()
+ * @method Member Member()
+ * @method CampaignMonitorSignupPage List()
  */
 class CampaignMonitorSubscriptionLog extends DataObject
 {

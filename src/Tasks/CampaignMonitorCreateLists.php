@@ -16,7 +16,10 @@ class CampaignMonitorCreateLists extends BuildTask
 
     protected $description = 'Goes through all the Campaign Monitor lists on Campaign Monitor and adds them to Silverstripe.';
 
-    protected $enabled = true;
+    /**
+     * @config
+     */
+    private static $is_enabled = true;
 
     protected $verbose = true;
 
@@ -122,7 +125,7 @@ class CampaignMonitorCreateLists extends BuildTask
     {
         $className = $this->Config()->get('class_name_for_page');
         $page = $this->getCampaignMonitorPageForListId($listId);
-        if (! $page) {
+        if (!$page instanceof CampaignMonitorSignupPage) {
             $page = $className::create();
         }
 
